@@ -466,6 +466,97 @@
     }
     html { scroll-behavior: auto; }
   }
+
+  /* Grocery checklist */
+  .grocery-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+  .grocery-progress-bar {
+    flex: 1;
+    height: 4px;
+    background: var(--rule);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .grocery-progress-fill {
+    height: 100%;
+    background: var(--teal-600);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+  .grocery-progress-label {
+    font-size: 12px;
+    color: var(--ink-faint);
+    font-style: italic;
+    white-space: nowrap;
+  }
+  .grocery-reset {
+    font-size: 12px;
+    color: var(--ink-faint);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-style: italic;
+    padding: 0;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .grocery-reset:hover { color: var(--ink-soft); }
+  .grocery-category { margin-bottom: 1.75rem; }
+  .grocery-category-title {
+    font-family: ui-serif, Georgia, serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 0.5px solid var(--rule);
+  }
+  .grocery-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.55rem 0.4rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.15s;
+    user-select: none;
+  }
+  .grocery-item:hover { background: var(--paper); }
+  .grocery-check {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: transparent;
+    transition: all 0.2s;
+  }
+  .grocery-item.checked .grocery-check {
+    background: var(--teal-600);
+    border-color: var(--teal-600);
+    color: #fff;
+  }
+  .grocery-label {
+    font-size: 14px;
+    color: var(--ink);
+    transition: color 0.2s;
+  }
+  .grocery-item.checked .grocery-label {
+    text-decoration: line-through;
+    color: var(--ink-faint);
+  }
+  @media (prefers-color-scheme: dark) {
+    .grocery-item.checked .grocery-check { background: var(--teal-600); border-color: var(--teal-600); }
+  }
 </style>
 </head>
 <body>
@@ -489,6 +580,7 @@
     <a href="#friday" class="day-link">Friday night</a>
     <a href="#saturday" class="day-link">Saturday</a>
     <a href="#sunday" class="day-link">Sunday</a>
+    <a href="#groceries" class="day-link">Groceries</a>
   </div>
 </nav>
 
@@ -771,6 +863,85 @@
     </div>
   </section>
 
+  <!-- GROCERIES -->
+  <section id="groceries">
+    <div class="day-header">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
+        <path d="M6 6 L8 20 L20 20 L22 6" fill="none" stroke="#0F6E56" stroke-width="0.8"/>
+        <path d="M4 6 L24 6" stroke="#0F6E56" stroke-width="0.8"/>
+        <circle cx="11" cy="23" r="1.5" fill="#0F6E56"/>
+        <circle cx="17" cy="23" r="1.5" fill="#0F6E56"/>
+      </svg>
+      <h2>Groceries</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="grocery-progress">
+      <div class="grocery-progress-bar"><div class="grocery-progress-fill" id="groceryFill"></div></div>
+      <span class="grocery-progress-label" id="groceryCount">0 / 0 checked</span>
+      <button class="grocery-reset" id="groceryReset">reset</button>
+    </div>
+
+    <div class="grocery-category">
+      <div class="grocery-category-title">Drinks &amp; toasts</div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Becca's drink of choice</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Rum — 1 bottle (for basic mai tai)</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Triple Sec — 1 bottle (for mai tai)</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Lime juice — 1 bottle (for mai tai)</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Limes — 6</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Club soda — 2 bottles</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Wine — 2 bottles</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Beer — 1 case (24 pack)</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Ginger beer or sprite — 2L</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Seltzers (White Claw, etc.) — 12 pack</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Ice — 2 large bags</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Plastic cups — 1 sleeve</span></div>
+    </div>
+
+    <div class="grocery-category">
+      <div class="grocery-category-title">Fire pit + s'mores</div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Graham crackers — 2 boxes</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Marshmallows — 1 big bag</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Hershey's chocolate bars — 6</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Long skewers (if not at the Airbnb)</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Lighter / matches</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Firewood or kindling (check if Airbnb provides first)</span></div>
+    </div>
+
+    <div class="grocery-category">
+      <div class="grocery-category-title">Saturday breakfast (pancakes for 8)</div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Pancake mix — 1 large box (or flour, baking powder, sugar)</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Eggs — 1 dozen</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Milk — half gallon</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Butter — 1 stick</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Maple syrup — 1 bottle</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Berries or bananas</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Orange juice — half gallon</span></div>
+    </div>
+
+    <div class="grocery-category">
+      <div class="grocery-category-title">Saturday grill (Michael's hour)</div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Burgers — 8–10 patties</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Beyond Burgers — 1 pack (for the plant-based crew)</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Salt, pepper, seasoning</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Veggies for grilling — corn, peppers, asparagus</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Bagged salad — 2 bags</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Chips — 2 bags</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Charcoal or propane (only if grill needs it)</span></div>
+    </div>
+
+    <div class="grocery-category">
+      <div class="grocery-category-title">Snacks + sundries</div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Popcorn (for the movie)</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Water bottles — 1 case</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Gatorade — 6 pack (Sunday morning savior)</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Vegan marshmallows</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Cheesecake</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Raspberries</span></div>
+      <div class="grocery-item" data-grocery><div class="grocery-check">✓</div><span class="grocery-label">Candles</span></div>
+    </div>
+  </section>
+
   <div class="fin">
     <svg width="60" height="20" viewBox="0 0 60 20" aria-hidden="true">
       <path d="M5 10 Q 15 5, 25 10 T 45 10 T 55 10" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.4"/>
@@ -823,6 +994,39 @@
   topBtn.addEventListener('click', function() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+
+  // Grocery checklist
+  var groceryItems = document.querySelectorAll('[data-grocery]');
+  var groceryFill = document.getElementById('groceryFill');
+  var groceryCount = document.getElementById('groceryCount');
+  var groceryReset = document.getElementById('groceryReset');
+
+  function updateGroceryProgress() {
+    var checked = document.querySelectorAll('[data-grocery].checked').length;
+    var total = groceryItems.length;
+    groceryFill.style.width = (total ? (checked / total * 100) : 0) + '%';
+    groceryCount.textContent = checked + ' / ' + total + ' checked';
+  }
+
+  groceryItems.forEach(function(item, idx) {
+    var key = 'grocery-' + idx;
+    if (localStorage.getItem(key) === '1') item.classList.add('checked');
+    item.addEventListener('click', function() {
+      item.classList.toggle('checked');
+      localStorage.setItem(key, item.classList.contains('checked') ? '1' : '0');
+      updateGroceryProgress();
+    });
+  });
+
+  groceryReset.addEventListener('click', function() {
+    groceryItems.forEach(function(item, idx) {
+      item.classList.remove('checked');
+      localStorage.removeItem('grocery-' + idx);
+    });
+    updateGroceryProgress();
+  });
+
+  updateGroceryProgress();
 </script>
 
 </body>
