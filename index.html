@@ -329,6 +329,8 @@
   .station.s-coral .station-title { color: var(--coral-800); }
   .station.s-gray { border-left-color: var(--gray-600); }
   .station.s-gray .station-title { color: var(--gray-800); }
+  .station.s-amber { border-left-color: var(--amber-600); }
+  .station.s-amber .station-title { color: var(--amber-800); }
 
   @media (prefers-color-scheme: dark) {
     .station.s-purple .station-title { color: #CECBF6; }
@@ -338,6 +340,7 @@
     .station.s-green .station-title { color: #C0DD97; }
     .station.s-coral .station-title { color: #F5C4B3; }
     .station.s-gray .station-title { color: #D3D1C7; }
+    .station.s-amber .station-title { color: #FAC775; }
   }
 
   /* Birthday block */
@@ -478,7 +481,7 @@
     <path d="M10 50 Q 60 55, 110 50" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
   </svg>
   <h1>a little Airbnb weekend</h1>
-  <div class="sub">~ for becca, with love (&amp; pizza) ~</div>
+  <div class="sub">~ for becca, with love (&amp; chipotle) ~</div>
 </header>
 
 <nav class="day-nav" aria-label="Days">
@@ -557,12 +560,12 @@
       <div class="step-content">
         <div class="step-title-row">
           <span class="step-title">Then begin the night</span>
-          <span class="step-time">~ tap a station to expand</span>
+          <span class="step-time">~ tap a station to collapse</span>
         </div>
         <div class="step-body">Then begin the night which consists of the following activities:</div>
 
         <div class="stations">
-          <div class="station s-purple" data-station>
+          <div class="station s-purple open" data-station>
             <div class="station-head">
               <span class="station-title">Hot tub + med student stock</span>
               <span class="station-toggle">›</span>
@@ -570,7 +573,7 @@
             <div class="station-body">will Marcus sets up hot tub and we make med student stock</div>
           </div>
 
-          <div class="station s-pink" data-station>
+          <div class="station s-pink open" data-station>
             <div class="station-head">
               <span class="station-title">Retro 50s gin fizz</span>
               <span class="station-toggle">›</span>
@@ -578,7 +581,7 @@
             <div class="station-body">arun Movva and aarthi kotapolli (sorry cant spell) get into cute outfits and make retro 50s drink (gin fizz)</div>
           </div>
 
-          <div class="station s-blue" data-station>
+          <div class="station s-blue open" data-station>
             <div class="station-head">
               <span class="station-title">Poker &amp; Codenames</span>
               <span class="station-toggle">›</span>
@@ -586,7 +589,7 @@
             <div class="station-body">rahul Burra brings poker chips and we bet our futures, others play codenames (</div>
           </div>
 
-          <div class="station s-teal" data-station>
+          <div class="station s-teal open" data-station>
             <div class="station-head">
               <span class="station-title">Game tournament</span>
               <span class="station-toggle">›</span>
@@ -594,7 +597,7 @@
             <div class="station-body">ben Hirsch and nikhil Patel find all the games in the home and design a tournament  - everyone plays games</div>
           </div>
 
-          <div class="station s-green" data-station>
+          <div class="station s-green open" data-station>
             <div class="station-head">
               <span class="station-title">Trivia (muscarinic activation)</span>
               <span class="station-toggle">›</span>
@@ -602,7 +605,7 @@
             <div class="station-body">Michael Sohn and anya Dhar create a trivia (muscarinic activation) type activity and everyone gathers around the movie screen</div>
           </div>
 
-          <div class="station s-coral" data-station>
+          <div class="station s-coral open" data-station>
             <div class="station-head">
               <span class="station-title">Fire + s'mores + hopes</span>
               <span class="station-toggle">›</span>
@@ -610,7 +613,15 @@
             <div class="station-body">arun Ahuja and becca Marcus create fire and we do smores and get deep about our hopes dreams and worries for the next year</div>
           </div>
 
-          <div class="station s-gray" data-station>
+          <div class="station s-amber open" data-station>
+            <div class="station-head">
+              <span class="station-title">Vote on Will's mustache</span>
+              <span class="station-toggle">›</span>
+            </div>
+            <div class="station-body">democratic vote on whether will marcus keeps or shaves the mustache. majority rules. no abstaining.</div>
+          </div>
+
+          <div class="station s-gray open" data-station>
             <div class="station-head">
               <span class="station-title">To bed (or not)</span>
               <span class="station-toggle">›</span>
@@ -671,10 +682,10 @@
       <div class="step-num num-coral">4</div>
       <div class="step-content">
         <div class="step-title-row">
-          <span class="step-title">Michael grills it up</span>
-          <span class="step-time">~ slutty fit</span>
+          <span class="step-title">Catered Chipotle</span>
+          <span class="step-time">~ saturday night dinner</span>
         </div>
-        <div class="step-body">Michael gets into slutty outfit and becomes grill master and cooks up some good good. Not sure if theres an outdoor grill but we shall adapt</div>
+        <div class="step-body">Catered Chipotle for Saturday night dinner. Burrito bowls. We feast.</div>
       </div>
     </div>
 
