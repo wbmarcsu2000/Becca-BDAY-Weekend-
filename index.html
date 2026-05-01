@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Becca's Birthday Weekend</title>
+<style>
+  :root {
+    --bg: #faf6ef;
+    --paper: #fffdf7;
+    --ink: #2a2823;
+    --ink-soft: #5a564c;
+    --ink-faint: #8a8478;
+    --rule: #d9d3c3;
+    --amber-50: #FAEEDA;
+    --amber-600: #BA7517;
+    --amber-800: #633806;
+    --teal-50: #E1F5EE;
+    --teal-600: #0F6E56;
+    --teal-800: #085041;
+    --pink-50: #FBEAF0;
+    --pink-200: #ED93B1;
+    --pink-600: #993556;
+    --pink-800: #4B1528;
+    --coral-50: #FAECE7;
+    --coral-200: #F0997B;
+    --coral-600: #993C1D;
+    --coral-800: #712B13;
+    --purple-50: #EEEDFE;
+    --purple-200: #AFA9EC;
+    --purple-600: #534AB7;
+    --purple-800: #3C3489;
+    --green-50: #EAF3DE;
+    --green-600: #3B6D11;
+    --green-800: #27500A;
+    --blue-50: #E6F1FB;
+    --blue-600: #185FA5;
+    --blue-800: #0C447C;
+    --gray-50: #F1EFE8;
+    --gray-600: #5F5E5A;
+    --gray-800: #2C2C2A;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1813;
+      --paper: #232019;
+      --ink: #ede8dc;
+      --ink-soft: #b8b2a3;
+      --ink-faint: #8a8478;
+      --rule: #3a352b;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.65;
+    min-height: 100vh;
+    padding: 0 1rem 4rem;
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(237, 147, 177, 0.06) 0, transparent 40%),
+      radial-gradient(circle at 90% 70%, rgba(159, 225, 203, 0.06) 0, transparent 40%);
+  }
+
+  .serif { font-family: ui-serif, Georgia, "Times New Roman", serif; font-style: italic; }
+
+  /* Hero */
+  .hero {
+    text-align: center;
+    padding: 3rem 1rem 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .hero h1 {
+    font-family: ui-serif, Georgia, serif;
+    font-style: italic;
+    font-size: clamp(28px, 6vw, 42px);
+    font-weight: 400;
+    color: var(--ink);
+    margin: 0.5rem 0 0.25rem;
+    letter-spacing: -0.01em;
+  }
+  .hero .sub {
+    font-size: 14px;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .hero-art {
+    display: block;
+    margin: 0 auto 0.5rem;
+  }
+
+  /* Sticky day nav */
+  .day-nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(250, 246, 239, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 0.75rem 0;
+    margin: 0 -1rem 2rem;
+    border-bottom: 0.5px solid var(--rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .day-nav { background: rgba(26, 24, 19, 0.85); }
+  }
+  .day-nav-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+  }
+  .day-nav a {
+    font-family: ui-serif, Georgia, serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    transition: all 0.2s;
+    border: 0.5px solid transparent;
+  }
+  .day-nav a:hover {
+    color: var(--ink);
+    background: var(--paper);
+    border-color: var(--rule);
+  }
+  .day-nav a.active {
+    color: var(--ink);
+    background: var(--paper);
+    border-color: var(--rule);
+  }
+
+  /* Container */
+  main {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Day header */
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 3rem 0 1.5rem;
+  }
+  .day-header h2 {
+    font-family: ui-serif, Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 28px;
+    color: var(--ink);
+  }
+  .day-header .rule {
+    flex: 1;
+    height: 0.5px;
+    background: var(--rule);
+  }
+
+  /* Notes / banners */
+  .note {
+    background: var(--blue-50);
+    color: var(--blue-800);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    border-left: 3px solid var(--blue-600);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .note b { font-weight: 500; }
+
+  @media (prefers-color-scheme: dark) {
+    .note { background: rgba(55, 138, 221, 0.12); color: #B5D4F4; }
+  }
+
+  /* Step rows */
+  .step {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 1.25rem;
+    align-items: flex-start;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: ui-serif, Georgia, serif;
+    font-style: italic;
+    font-size: 17px;
+    transition: transform 0.2s;
+  }
+  .step:hover .step-num { transform: scale(1.05); }
+
+  .step-content { flex: 1; padding-top: 4px; min-width: 0; }
+  .step-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+  .step-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .step-time {
+    font-size: 12px;
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+  .step-body {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+
+  /* Color tints for step numbers */
+  .num-amber { background: var(--amber-50); color: var(--amber-800); }
+  .num-teal { background: var(--teal-50); color: var(--teal-800); }
+  .num-pink { background: var(--pink-50); color: var(--pink-800); }
+  .num-coral { background: var(--coral-50); color: var(--coral-800); }
+  .num-purple { background: var(--purple-50); color: var(--purple-800); }
+  .num-green { background: var(--green-50); color: var(--green-800); }
+  .num-blue { background: var(--blue-50); color: var(--blue-800); }
+  .num-gray { background: var(--gray-50); color: var(--gray-800); }
+
+  @media (prefers-color-scheme: dark) {
+    .num-amber { background: rgba(186, 117, 23, 0.18); color: #FAC775; }
+    .num-teal { background: rgba(15, 110, 86, 0.18); color: #9FE1CB; }
+    .num-pink { background: rgba(212, 83, 126, 0.18); color: #F4C0D1; }
+    .num-coral { background: rgba(216, 90, 48, 0.18); color: #F5C4B3; }
+    .num-purple { background: rgba(83, 74, 183, 0.18); color: #CECBF6; }
+    .num-green { background: rgba(99, 153, 34, 0.18); color: #C0DD97; }
+    .num-blue { background: rgba(55, 138, 221, 0.18); color: #B5D4F4; }
+    .num-gray { background: rgba(95, 94, 90, 0.25); color: #D3D1C7; }
+  }
+
+  /* Sub-list (i, ii, etc) */
+  .sub-list {
+    margin-top: 4px;
+  }
+  .sub-list .sub {
+    margin-bottom: 6px;
+  }
+  .sub-list .sub:last-child { margin-bottom: 0; }
+  .sub-marker {
+    font-family: ui-serif, Georgia, serif;
+    font-style: italic;
+    margin-right: 6px;
+  }
+
+  /* Activity station cards (Friday night) */
+  .stations {
+    margin-top: 12px;
+    display: grid;
+    gap: 10px;
+  }
+  .station {
+    background: var(--paper);
+    border: 0.5px solid var(--rule);
+    border-left-width: 3px;
+    border-radius: 10px;
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .station:hover {
+    transform: translateX(2px);
+    box-shadow: 0 1px 0 0 var(--rule);
+  }
+  .station-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .station-title {
+    font-size: 14px;
+    font-weight: 500;
+    flex: 1;
+  }
+  .station-toggle {
+    font-size: 12px;
+    color: var(--ink-faint);
+    transition: transform 0.2s;
+  }
+  .station.open .station-toggle { transform: rotate(90deg); }
+  .station-body {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, margin-top 0.2s;
+  }
+  .station.open .station-body {
+    max-height: 200px;
+    margin-top: 8px;
+  }
+
+  .station.s-purple { border-left-color: var(--purple-600); }
+  .station.s-purple .station-title { color: var(--purple-800); }
+  .station.s-pink { border-left-color: var(--pink-600); }
+  .station.s-pink .station-title { color: var(--pink-800); }
+  .station.s-blue { border-left-color: var(--blue-600); }
+  .station.s-blue .station-title { color: var(--blue-800); }
+  .station.s-teal { border-left-color: var(--teal-600); }
+  .station.s-teal .station-title { color: var(--teal-800); }
+  .station.s-green { border-left-color: var(--green-600); }
+  .station.s-green .station-title { color: var(--green-800); }
+  .station.s-coral { border-left-color: var(--coral-600); }
+  .station.s-coral .station-title { color: var(--coral-800); }
+  .station.s-gray { border-left-color: var(--gray-600); }
+  .station.s-gray .station-title { color: var(--gray-800); }
+
+  @media (prefers-color-scheme: dark) {
+    .station.s-purple .station-title { color: #CECBF6; }
+    .station.s-pink .station-title { color: #F4C0D1; }
+    .station.s-blue .station-title { color: #B5D4F4; }
+    .station.s-teal .station-title { color: #9FE1CB; }
+    .station.s-green .station-title { color: #C0DD97; }
+    .station.s-coral .station-title { color: #F5C4B3; }
+    .station.s-gray .station-title { color: #D3D1C7; }
+  }
+
+  /* Birthday block */
+  .birthday-block {
+    background: var(--pink-50);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border: 0.5px solid var(--pink-200);
+    position: relative;
+  }
+  @media (prefers-color-scheme: dark) {
+    .birthday-block {
+      background: rgba(212, 83, 126, 0.12);
+      border-color: rgba(212, 83, 126, 0.4);
+    }
+  }
+  .birthday-title {
+    text-align: center;
+    margin-bottom: 1.25rem;
+  }
+  .birthday-title .label {
+    font-family: ui-serif, Georgia, serif;
+    font-style: italic;
+    font-size: 19px;
+    color: var(--pink-800);
+    margin-top: 6px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .birthday-title .label { color: #F4C0D1; }
+  }
+  .birthday-step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 1rem;
+  }
+  .birthday-step:last-child { margin-bottom: 0; }
+  .birthday-step .num {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--pink-200);
+    color: var(--pink-800);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: ui-serif, Georgia, serif;
+    font-style: italic;
+    font-size: 14px;
+  }
+  .birthday-step .b-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--pink-800);
+    margin-bottom: 4px;
+  }
+  .birthday-step .b-body {
+    font-size: 13px;
+    color: var(--pink-600);
+    line-height: 1.6;
+  }
+  @media (prefers-color-scheme: dark) {
+    .birthday-step .b-title { color: #F4C0D1; }
+    .birthday-step .b-body { color: #ED93B1; }
+  }
+
+  /* Floating return-to-top */
+  .top-btn {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 0.5px solid var(--rule);
+    color: var(--ink-soft);
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .top-btn.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .top-btn:hover { transform: translateY(-2px); }
+
+  /* Footer flourish */
+  .fin {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 0.5px dashed var(--rule);
+  }
+  .fin .label {
+    font-family: ui-serif, Georgia, serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-faint);
+    margin-top: 4px;
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .step, .station, .birthday-step, .note {
+    animation: fadeIn 0.5s ease both;
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg class="hero-art" width="120" height="60" viewBox="0 0 120 60" aria-hidden="true">
+    <path d="M35 45 L 35 22 L 60 10 L 85 22 L 85 45 Z" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.5"/>
+    <path d="M52 45 L 52 30 L 68 30 L 68 45" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.5"/>
+    <circle cx="20" cy="16" r="1.5" fill="currentColor" opacity="0.4"/>
+    <circle cx="100" cy="22" r="1.5" fill="currentColor" opacity="0.4"/>
+    <circle cx="105" cy="12" r="1" fill="currentColor" opacity="0.4"/>
+    <circle cx="15" cy="28" r="1" fill="currentColor" opacity="0.4"/>
+    <path d="M10 50 Q 60 55, 110 50" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+  </svg>
+  <h1>a little Airbnb weekend</h1>
+  <div class="sub">~ for becca, with love (&amp; pizza) ~</div>
+</header>
+
+<nav class="day-nav" aria-label="Days">
+  <div class="day-nav-inner">
+    <a href="#friday" class="day-link">Friday night</a>
+    <a href="#saturday" class="day-link">Saturday</a>
+    <a href="#sunday" class="day-link">Sunday</a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- FRIDAY -->
+  <section id="friday">
+    <div class="day-header">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
+        <circle cx="20" cy="8" r="3" fill="#EEEDFE" stroke="#3C3489" stroke-width="0.5"/>
+        <path d="M4 20 Q 10 14, 14 20 Q 18 26, 24 20" fill="none" stroke="#3C3489" stroke-width="0.8"/>
+        <circle cx="6" cy="6" r="0.8" fill="#3C3489"/>
+        <circle cx="10" cy="10" r="0.8" fill="#3C3489"/>
+        <circle cx="14" cy="5" r="0.8" fill="#3C3489"/>
+      </svg>
+      <h2>Friday night</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="step">
+      <div class="step-num num-amber">1</div>
+      <div class="step-content">
+        <div class="step-title-row">
+          <span class="step-title">On way to Airbnb</span>
+          <span class="step-time">~ pit stops</span>
+        </div>
+        <div class="step-body sub-list">
+          <div class="sub"><span class="sub-marker" style="color: var(--amber-800);">i.</span>early car stops by jewel osco and picks up items predetermined</div>
+          <div class="sub"><span class="sub-marker" style="color: var(--amber-800);">ii.</span>later car stops by local pizza place and picks up preordered slices</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num num-teal">2</div>
+      <div class="step-content">
+        <div class="step-title-row">
+          <span class="step-title">Bed dibs &amp; vibes</span>
+          <span class="step-time">~ on arrival</span>
+        </div>
+        <div class="step-body">Unpack explore Airbnb and call dibs on beds</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num num-pink">3</div>
+      <div class="step-content">
+        <div class="step-title-row">
+          <span class="step-title">Pop champagne!!</span>
+          <span class="step-time">~ cheers</span>
+        </div>
+        <div class="step-body">Once everyone arrives and ready pop champagne cheers to us!!!!</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num num-coral">4</div>
+      <div class="step-content">
+        <div class="step-title-row">
+          <span class="step-title">Pizza time</span>
+          <span class="step-time">~ yummy</span>
+        </div>
+        <div class="step-body">Eat some pizza yummy!!</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num num-purple">5</div>
+      <div class="step-content">
+        <div class="step-title-row">
+          <span class="step-title">Then begin the night</span>
+          <span class="step-time">~ tap a station to expand</span>
+        </div>
+        <div class="step-body">Then begin the night which consists of the following activities:</div>
+
+        <div class="stations">
+          <div class="station s-purple" data-station>
+            <div class="station-head">
+              <span class="station-title">Hot tub + med student stock</span>
+              <span class="station-toggle">›</span>
+            </div>
+            <div class="station-body">will Marcus sets up hot tub and we make med student stock</div>
+          </div>
+
+          <div class="station s-pink" data-station>
+            <div class="station-head">
+              <span class="station-title">Retro 50s gin fizz</span>
+              <span class="station-toggle">›</span>
+            </div>
+            <div class="station-body">arun Movva and aarthi kotapolli (sorry cant spell) get into cute outfits and make retro 50s drink (gin fizz)</div>
+          </div>
+
+          <div class="station s-blue" data-station>
+            <div class="station-head">
+              <span class="station-title">Poker &amp; Codenames</span>
+              <span class="station-toggle">›</span>
+            </div>
+            <div class="station-body">rahul Burra brings poker chips and we bet our futures, others play codenames (</div>
+          </div>
+
+          <div class="station s-teal" data-station>
+            <div class="station-head">
+              <span class="station-title">Game tournament</span>
+              <span class="station-toggle">›</span>
+            </div>
+            <div class="station-body">ben Hirsch and nikhil Patel find all the games in the home and design a tournament  - everyone plays games</div>
+          </div>
+
+          <div class="station s-green" data-station>
+            <div class="station-head">
+              <span class="station-title">Trivia (muscarinic activation)</span>
+              <span class="station-toggle">›</span>
+            </div>
+            <div class="station-body">Michael Sohn and anya Dhar create a trivia (muscarinic activation) type activity and everyone gathers around the movie screen</div>
+          </div>
+
+          <div class="station s-coral" data-station>
+            <div class="station-head">
+              <span class="station-title">Fire + s'mores + hopes</span>
+              <span class="station-toggle">›</span>
+            </div>
+            <div class="station-body">arun Ahuja and becca Marcus create fire and we do smores and get deep about our hopes dreams and worries for the next year</div>
+          </div>
+
+          <div class="station s-gray" data-station>
+            <div class="station-head">
+              <span class="station-title">To bed (or not)</span>
+              <span class="station-toggle">›</span>
+            </div>
+            <div class="station-body">those who want bed go - those who dont continue doing what they wish</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SATURDAY -->
+  <section id="saturday">
+    <div class="day-header">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
+        <circle cx="22" cy="8" r="4" fill="#FAC775" stroke="#633806" stroke-width="0.6"/>
+        <path d="M22 2 L 22 4 M 22 12 L 22 14 M 16 8 L 18 8 M 26 8 L 28 8" stroke="#633806" stroke-width="0.6"/>
+        <path d="M3 20 Q 9 15, 14 20 T 25 20" fill="none" stroke="#0F6E56" stroke-width="0.8"/>
+      </svg>
+      <h2>Saturday</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="step">
+      <div class="step-num num-amber">1</div>
+      <div class="step-content">
+        <div class="step-title-row">
+          <span class="step-title">Pancake breakfast</span>
+          <span class="step-time">~ early birds</span>
+        </div>
+        <div class="step-body">Early birds wake up and cook a delightful pancake breakfast (bimothee aarthi ben so far)</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num num-green">2</div>
+      <div class="step-content">
+        <div class="step-title-row">
+          <span class="step-title">Choose your own adventure</span>
+          <span class="step-time">~ til afternoon</span>
+        </div>
+        <div class="step-body">We chill until past noon. Groups can either stay at the BnB, go to Indiana dunes, or go to Saturday Chesterton market and explore.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num num-blue">3</div>
+      <div class="step-content">
+        <div class="step-title-row">
+          <span class="step-title">Siesta hours</span>
+          <span class="step-time">~ late afternoon</span>
+        </div>
+        <div class="step-body">Late afternoon we come back chill siesta type shit</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num num-coral">4</div>
+      <div class="step-content">
+        <div class="step-title-row">
+          <span class="step-title">Michael grills it up</span>
+          <span class="step-time">~ slutty fit</span>
+        </div>
+        <div class="step-body">Michael gets into slutty outfit and becomes grill master and cooks up some good good. Not sure if theres an outdoor grill but we shall adapt</div>
+      </div>
+    </div>
+
+    <div class="birthday-block">
+      <div class="birthday-title">
+        <svg width="44" height="44" viewBox="0 0 40 40" style="display: block; margin: 0 auto;" aria-hidden="true">
+          <rect x="10" y="18" width="20" height="14" fill="#F4C0D1" stroke="#72243E" stroke-width="0.6"/>
+          <rect x="8" y="14" width="24" height="5" fill="#ED93B1" stroke="#72243E" stroke-width="0.6"/>
+          <line x1="20" y1="14" x2="20" y2="32" stroke="#72243E" stroke-width="0.4"/>
+          <path d="M20 14 Q 16 8, 14 12 Q 16 14, 20 14" fill="#F4C0D1" stroke="#72243E" stroke-width="0.5"/>
+          <path d="M20 14 Q 24 8, 26 12 Q 24 14, 20 14" fill="#F4C0D1" stroke="#72243E" stroke-width="0.5"/>
+          <circle cx="20" cy="6" r="2" fill="#FAC775" stroke="#633806" stroke-width="0.4"/>
+        </svg>
+        <div class="label">~ becca's birthday hours ~</div>
+      </div>
+
+      <div class="birthday-step">
+        <div class="num">1</div>
+        <div>
+          <div class="b-title">Birthday queen transformation</div>
+          <div class="b-body">Becca gets into cute fit and transforms into birthday girl queen. We cheers to her and have her drink of choice to toast.</div>
+        </div>
+      </div>
+
+      <div class="birthday-step">
+        <div class="num">2</div>
+        <div>
+          <div class="b-title">Becca's chosen activity</div>
+          <div class="b-body">We do becca chosen birthday activity!!!!</div>
+        </div>
+      </div>
+
+      <div class="birthday-step">
+        <div class="num">3</div>
+        <div>
+          <div class="b-title">Movie + hot tub round 2</div>
+          <div class="b-body">Chill night from here. Watch movie (medical oriented) go back in hot dub? Vibe</div>
+        </div>
+      </div>
+
+      <div class="birthday-step">
+        <div class="num">4</div>
+        <div>
+          <div class="b-title">Sleepy time</div>
+          <div class="b-body">Get sleepy with it</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUNDAY -->
+  <section id="sunday">
+    <div class="day-header">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
+        <path d="M14 4 Q 8 8, 8 14 Q 8 22, 16 22 Q 22 22, 24 18 Q 18 20, 14 16 Q 10 12, 14 4" fill="#D3D1C7" stroke="#444441" stroke-width="0.5"/>
+        <circle cx="20" cy="6" r="0.6" fill="#444441"/>
+        <circle cx="6" cy="20" r="0.6" fill="#444441"/>
+      </svg>
+      <h2>Sunday</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="step">
+      <div class="step-num num-amber">1</div>
+      <div class="step-content">
+        <div class="step-title-row">
+          <span class="step-title">Breakfast (maybe)</span>
+          <span class="step-time">~ leftovers or diner</span>
+        </div>
+        <div class="step-body">Breakfast if we have shit left. Could also go to diner nearby</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num num-gray">2</div>
+      <div class="step-content">
+        <div class="step-title-row">
+          <span class="step-title">GTFO</span>
+          <span class="step-time">~ peace out</span>
+        </div>
+        <div class="step-body">GTFO</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="fin">
+    <svg width="60" height="20" viewBox="0 0 60 20" aria-hidden="true">
+      <path d="M5 10 Q 15 5, 25 10 T 45 10 T 55 10" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.4"/>
+    </svg>
+    <div class="label">happy birthday becca ~</div>
+  </div>
+
+</main>
+
+<button class="top-btn" id="topBtn" aria-label="Back to top">↑</button>
+
+<script>
+  // Expandable activity stations
+  document.querySelectorAll('[data-station]').forEach(function(el) {
+    el.addEventListener('click', function() {
+      el.classList.toggle('open');
+    });
+  });
+
+  // Sticky nav active state via IntersectionObserver
+  var sections = document.querySelectorAll('main section');
+  var links = document.querySelectorAll('.day-link');
+  var linkMap = {};
+  links.forEach(function(l) {
+    linkMap[l.getAttribute('href').slice(1)] = l;
+  });
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        links.forEach(function(l) { l.classList.remove('active'); });
+        if (linkMap[entry.target.id]) {
+          linkMap[entry.target.id].classList.add('active');
+        }
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+
+  sections.forEach(function(s) { observer.observe(s); });
+
+  // Back to top
+  var topBtn = document.getElementById('topBtn');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 400) {
+      topBtn.classList.add('visible');
+    } else {
+      topBtn.classList.remove('visible');
+    }
+  });
+  topBtn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>
